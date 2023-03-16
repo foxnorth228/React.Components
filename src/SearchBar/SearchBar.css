@@ -1,0 +1,26 @@
+.searchBar {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    border: 2px solid purple;
+    border-radius: 20px;
+}
+
+.searchBar__icon {
+    width: 25px;
+    height: 25px;
+    background-color: purple;
+    mask-image: url('./assets/search.svg');
+    -webkit-mask-image: url('./assets/search.svg');
+}
+
+.searchBar__text {
+    box-sizing: border-box;
+    color: green;
+    font-size: 1.2em;
+    width: 160px;
+    height: 30px;
+    border: 0;
+    outline: 0;
+}

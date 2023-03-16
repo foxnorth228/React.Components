@@ -9,6 +9,7 @@ import {
   RouterProvider,
   Routes,
 } from 'react-router-dom';
+import SearchBar from './SearchBar/SearchBar';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
         path="/"
         element={
           <>
+            <SearchBar />
             <div>Hello World</div>
           </>
         }
