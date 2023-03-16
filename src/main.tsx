@@ -10,6 +10,7 @@ import {
   Routes,
 } from 'react-router-dom';
 import SearchBar from './SearchBar/SearchBar';
+import MainPage from './MainPage/MainPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,8 +19,7 @@ const router = createBrowserRouter(
         path="/"
         element={
           <>
-            <SearchBar />
-            <div>Hello World</div>
+            <MainPage />
           </>
         }
       />
