@@ -8,14 +8,14 @@ import {
   Navigate,
   RouterProvider,
 } from 'react-router-dom';
-import MainPage from './MainPage/MainPage';
+import Content from './Content/Content';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<MainPage type="main" />} />
-      <Route path="/about" element={<MainPage type="about" />} />
-      <Route path="/404" element={<MainPage type="error" />} />
+      <Route path="/" element={<Content type="main" />} />
+      <Route path="/about" element={<Content type="about" />} />
+      <Route path="/404" element={<Content type="error" />} />
       <Route path="*" element={<Navigate to="/404" />} />
     </>
   )

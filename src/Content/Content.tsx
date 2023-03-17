@@ -1,8 +1,8 @@
 import React from 'react';
-import './MainPage.css';
+import './Main.css';
 import { Link } from 'react-router-dom';
 
-class MainPage extends React.Component<{ type: string }, object> {
+class Content extends React.Component<{ type: string }, object> {
   constructor(props: { type: string }) {
     super(props);
   }
@@ -24,4 +24,4 @@ class MainPage extends React.Component<{ type: string }, object> {
   }
 }
 
-export default MainPage;
+export default Content;
