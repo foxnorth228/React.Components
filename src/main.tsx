@@ -7,24 +7,15 @@ import {
   Route,
   Navigate,
   RouterProvider,
-  Routes,
 } from 'react-router-dom';
-import SearchBar from './SearchBar/SearchBar';
 import MainPage from './MainPage/MainPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route
-        path="/"
-        element={
-          <>
-            <MainPage />
-          </>
-        }
-      />
-      <Route path="/about" element={<div>About</div>} />
-      <Route path="/404" element={<div>404</div>} />
+      <Route path="/" element={<MainPage type="main" />} />
+      <Route path="/about" element={<MainPage type="about" />} />
+      <Route path="/404" element={<MainPage type="error" />} />
       <Route path="*" element={<Navigate to="/404" />} />
     </>
   )
