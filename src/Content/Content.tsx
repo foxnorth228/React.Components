@@ -1,6 +1,7 @@
 import React from 'react';
-import './Main.css';
-import { Link } from 'react-router-dom';
+import './Content.css';
+import Header from './Header/Header';
+import Page from './Page/Page';
 
 class Content extends React.Component<{ type: string }, object> {
   constructor(props: { type: string }) {
@@ -10,15 +11,8 @@ class Content extends React.Component<{ type: string }, object> {
   render() {
     return (
       <>
-        <header>
-          <nav className="nav">
-            <h1></h1>
-            <Link to="/">Main</Link>
-            <Link to="/about">About</Link>
-            <Link to="/404">404</Link>
-          </nav>
-        </header>
-        <div></div>
+        <Header type={this.props.type} />
+        <Page type={this.props.type} />
       </>
     );
   }

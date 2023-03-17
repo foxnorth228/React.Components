@@ -1,4 +1,7 @@
 import React from 'react';
+import MainPage from './MainPage/MainPage';
+import AboutPage from './AboutPage/AboutPage';
+import ErrorPage from './ErrorPage/ErrorPage';
 
 class Page extends React.Component<{ type: string }, object> {
   constructor(props: { type: string }) {
@@ -10,11 +13,13 @@ class Page extends React.Component<{ type: string }, object> {
     let returnedElement: JSX.Element = <></>;
     switch (this.props.type) {
       case 'main':
-        returnedElement = <div>Main</div>;
+        returnedElement = <MainPage />;
         break;
       case 'about':
+        returnedElement = <AboutPage />;
         break;
       case 'error':
+        returnedElement = <ErrorPage />;
         break;
       default:
         break;
