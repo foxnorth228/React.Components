@@ -2,6 +2,7 @@ import React from 'react';
 import MainPage from './MainPage/MainPage';
 import AboutPage from './AboutPage/AboutPage';
 import ErrorPage from './ErrorPage/ErrorPage';
+import './Page.css';
 
 class Page extends React.Component<{ type: string }, object> {
   constructor(props: { type: string }) {
@@ -28,7 +29,7 @@ class Page extends React.Component<{ type: string }, object> {
   }
 
   render() {
-    return this.getMainElement();
+    return <div className="page">{this.getMainElement()}</div>;
   }
 }
 
