@@ -1,4 +1,4 @@
-import { routes } from './main';
+import { routes } from '../main';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

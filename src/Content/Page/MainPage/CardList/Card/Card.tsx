@@ -1,6 +1,8 @@
 import React from 'react';
 import { cardInf } from '../dataCard';
 import './Card.css';
+import Likes from './LIkes/Likes';
+import Views from './Views/Views';
 
 class Card extends React.Component<{ obj: cardInf }, object> {
   constructor(props: { obj: cardInf }) {
@@ -17,14 +19,8 @@ class Card extends React.Component<{ obj: cardInf }, object> {
           <p className="card__desc">{description}</p>
           <div className="card__contentInf">
             <p className="card__tags">{tags.join(', ')}</p>
-            <div className="like">
-              <div className="like__icon"></div>
-              <span>{likes}</span>
-            </div>
-            <div className="view">
-              <div className="view__icon"></div>
-              <span>{views}</span>
-            </div>
+            <Likes likes={likes} />
+            <Views views={views} />
           </div>
         </div>
       </div>

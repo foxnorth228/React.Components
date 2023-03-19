@@ -1,8 +1,6 @@
 import React from 'react';
-import MainPage from './MainPage/MainPage';
-import AboutPage from './AboutPage/AboutPage';
-import ErrorPage from './ErrorPage/ErrorPage';
 import './Page.css';
+import pagesInfo from '../../pagesInfo';
 
 class Page extends React.Component<{ type: string }, object> {
   constructor(props: { type: string }) {
@@ -11,21 +9,8 @@ class Page extends React.Component<{ type: string }, object> {
   }
 
   getMainElement(): JSX.Element {
-    let returnedElement: JSX.Element = <></>;
-    switch (this.props.type) {
-      case 'main':
-        returnedElement = <MainPage />;
-        break;
-      case 'about':
-        returnedElement = <AboutPage />;
-        break;
-      case 'error':
-        returnedElement = <ErrorPage />;
-        break;
-      default:
-        break;
-    }
-    return returnedElement;
+    const page = Object.entries(pagesInfo).find((el) => el[1].type === this.props.type);
+    return (page && page[1] && page[1].page) || <></>;
   }
 
   render() {

@@ -7,10 +7,6 @@
     width: 97%;
 }
 
-.header__nav {
-    display: flex;
-}
-
 .header__link {
     margin: 0 1vw;
 }

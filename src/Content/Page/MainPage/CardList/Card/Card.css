@@ -41,29 +41,3 @@
     display: flex;
     flex-wrap: wrap;
 }
-
-.like {
-    display: flex;
-    width: 50%;
-}
-
-.like__icon {
-    width: 20px;
-    height: 20px;
-    mask-image: url('./like.svg');
-    -webkit-mask-image: url('./like.svg');
-    background-color: black;
-}
-
-.view {
-    display: flex;
-    width: 50%;
-}
-
-.view__icon {
-    width: 20px;
-    height: 20px;
-    mask-image: url('./view.svg');
-    -webkit-mask-image: url('./view.svg');
-    background-color: black;
-}

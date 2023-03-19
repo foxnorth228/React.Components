@@ -9,17 +9,18 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import Content from './Content/Content';
+import pagesInfo from './pagesInfo';
 
 export const routes = (
   <>
-    <Route path="/" element={<Content type="main" />} />
-    <Route path="/about" element={<Content type="about" />} />
-    <Route path="/404" element={<Content type="error" />} />
-    <Route path="*" element={<Navigate to="/404" />} />
+    {pagesInfo.map((el, i) => {
+      return <Route key={i} path={el.link} element={<Content type={el.type} />} />;
+    })}
+    <Route path="*" element={<Navigate to={pagesInfo[2].link} />} />
   </>
 );
 
-export const router = createBrowserRouter(createRoutesFromElements(routes));
+const router = createBrowserRouter(createRoutesFromElements(routes));
 
 ReactDOM.createRoot(
   (document.getElementById('root') as HTMLElement) || document.createElement('div')
