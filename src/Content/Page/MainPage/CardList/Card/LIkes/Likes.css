@@ -1,0 +1,12 @@
+.like {
+    display: flex;
+    width: 50%;
+}
+
+.like__icon {
+    width: 20px;
+    height: 20px;
+    mask-image: url('./like.svg');
+    -webkit-mask-image: url('./like.svg');
+    background-color: black;
+}

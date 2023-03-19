@@ -1,0 +1,12 @@
+.header {
+    box-sizing: border-box;
+    margin: 0 2vw 0 1vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 97%;
+}
+
+.header__link {
+    margin: 0 1vw;
+}

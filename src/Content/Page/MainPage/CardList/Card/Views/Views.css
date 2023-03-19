@@ -1,0 +1,12 @@
+.view {
+    display: flex;
+    width: 50%;
+}
+
+.view__icon {
+    width: 20px;
+    height: 20px;
+    mask-image: url('./view.svg');
+    -webkit-mask-image: url('./view.svg');
+    background-color: black;
+}
