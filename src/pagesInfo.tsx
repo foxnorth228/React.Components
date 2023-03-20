@@ -2,6 +2,7 @@ import React from 'react';
 import MainPage from './Content/Page/MainPage/MainPage';
 import AboutPage from './Content/Page//AboutPage/AboutPage';
 import ErrorPage from './Content/Page//ErrorPage/ErrorPage';
+import FormPage from './Content/Page/FormPage/FormPage';
 
 const pagesInfo = [
   {
@@ -15,6 +16,12 @@ const pagesInfo = [
     name: 'About',
     type: 'about',
     page: <AboutPage />,
+  },
+  {
+    link: '/form',
+    name: 'Form',
+    type: 'form',
+    page: <FormPage />,
   },
   {
     link: '/404',

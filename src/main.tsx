@@ -16,7 +16,7 @@ export const routes = (
     {pagesInfo.map((el, i) => {
       return <Route key={i} path={el.link} element={<Content type={el.type} />} />;
     })}
-    <Route path="*" element={<Navigate to={pagesInfo[2].link} />} />
+    <Route path="*" element={<Navigate to={pagesInfo[pagesInfo.length - 1].link} />} />
   </>
 );
 
