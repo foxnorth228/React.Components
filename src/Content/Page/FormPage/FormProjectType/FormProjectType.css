@@ -1,0 +1,6 @@
+.formProjectType {
+    width: 270px;
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0 0 0;
+}

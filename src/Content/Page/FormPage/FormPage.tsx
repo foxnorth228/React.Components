@@ -1,39 +1,27 @@
 import React from 'react';
+import FormGeneralInfo from './FormGeneralInfo/FormGeneralInfo';
+import FormProjectType from './FormProjectType/FormProjectType';
+import FormLangInfo from './FormLangInfo/FormLangInfo';
 import './FormPage.css';
 
 // buy a program from freelance
 class FormPage extends React.Component {
   render() {
-    const a = new Date().toISOString().slice(0, 10);
     return (
       <div className="formPage">
         <div className="form">
-          <input type="text" name="name" placeholder="Name of project..."></input>
-          <input type="number" name="cost" placeholder="How much money you offer..."></input>
-          <input type="email" name="contact" placeholder="Your contact email..."></input>
-          <input type="date" value={a} min={a}></input>
-          <select>
-            <option>FrontEnd</option>
-            <option>BackEnd</option>
-            <option>Desktop</option>
-            <option>Mobile</option>
-          </select>
-          <label>
+          <FormGeneralInfo />
+          <FormProjectType />
+          <FormLangInfo />
+          <label className="formVert formFile">
+            Choose sample image
+            <input className="formFileI" type="file" accept="image/png, image/jpeg"></input>
+          </label>
+          <label className="formFile">
             Prepaymant
             <input type="checkbox"></input>
           </label>
-          <fieldset>
-            <label>
-              Javascript
-              <input type="radio"></input>
-            </label>
-            <label>
-              Typescript
-              <input type="radio"></input>
-            </label>
-          </fieldset>
-          <input type="file" accept="image/png, image/jpeg"></input>
-          <input type="submit" value="Send Request"></input>
+          <input className="formFile" type="submit" value="Send Request"></input>
         </div>
       </div>
     );
