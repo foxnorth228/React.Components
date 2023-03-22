@@ -2,6 +2,7 @@ import React from 'react';
 import FormGeneralInfo from './FormGeneralInfo/FormGeneralInfo';
 import FormProjectType from './FormProjectType/FormProjectType';
 import FormLangInfo from './FormLangInfo/FormLangInfo';
+import CardList from './CardList/CardList';
 import './FormPage.css';
 
 // buy a program from freelance
@@ -44,7 +45,7 @@ class FormPage extends React.Component {
         this!.refLang[1]!.current!.checked +
         this!.refLang[2]!.current!.checked +
         this!.refLang[3]!.current!.checked +
-        this!.refFile!.current!.files[0]!.name +
+        this!.refFile!.current!.files![0]!.name +
         this!.refPayment!.current!.checked
     );
     event.preventDefault();
