@@ -3,8 +3,9 @@ import FormGeneralInfo from './FormGeneralInfo/FormGeneralInfo';
 import FormProjectType from './FormProjectType/FormProjectType';
 import FormLangInfo from './FormLangInfo/FormLangInfo';
 import { IRefCardList } from '../FormPage';
+import './Form.css';
 
-interface IErrorValidiry {
+export interface IErrorValidiry {
   name: number;
   cost: number;
   mail: number;
@@ -58,15 +59,35 @@ class Form extends React.Component<IRefCardList, object> {
   }
 
   validate() {
-    if (
-      this!.refName!.current!.value === '' ||
-      (this!.refCost!.current!.value === '' && !Number(this!.refCost!.current!.value)) ||
-      (this!.refMail!.current!.value === '' && !this!.refMail!.current?.checkValidity()) ||
-      (this!.refFile!.current!.files && typeof this!.refFile!.current!.files[0] === 'undefined')
-    ) {
-      return false;
+    if (this!.refName!.current!.value === '') {
+      this.errorValidity.name = 1;
+    } else {
+      this.errorValidity.name = 0;
     }
-    return true;
+
+    if (this!.refCost!.current!.value === '') {
+      this.errorValidity.cost = 1;
+    } else if (!Number(this!.refCost!.current!.value)) {
+      this.errorValidity.cost = 2;
+    } else {
+      this.errorValidity.cost = 0;
+    }
+
+    if (this!.refMail!.current!.value === '') {
+      this.errorValidity.mail = 1;
+    } else if (!this!.refMail!.current?.checkValidity()) {
+      this.errorValidity.mail = 2;
+    } else {
+      this.errorValidity.mail = 0;
+    }
+    if (this!.refFile!.current!.files && typeof this!.refFile!.current!.files[0] === 'undefined') {
+      this.errorValidity.file = 1;
+    } else {
+      this.errorValidity.file = 0;
+    }
+
+    this.forceUpdate();
+    return (Object.values(this.errorValidity) as number[]).every((el) => el === 0);
   }
 
   handleSubmit(event: React.FormEvent) {
@@ -92,10 +113,20 @@ class Form extends React.Component<IRefCardList, object> {
     event.preventDefault();
   }
 
+  checkFileError() {
+    switch (this.errorValidity.file) {
+      case 1:
+        return <span className="errorMessage">{'You should select file'}</span>;
+      default:
+        return null;
+    }
+  }
+
   render() {
     return (
       <form ref={this.refForm} className="form" onSubmit={this.handleSubmit}>
         <FormGeneralInfo
+          errors={this.errorValidity}
           refName={this.refName}
           refCost={this.refCost}
           refMail={this.refMail}
@@ -112,6 +143,7 @@ class Form extends React.Component<IRefCardList, object> {
             accept="image/png, image/jpeg"
           ></input>
         </label>
+        {this.checkFileError()}
         <label className="formFile">
           Prepaymant
           <input ref={this.refPayment} type="checkbox"></input>
