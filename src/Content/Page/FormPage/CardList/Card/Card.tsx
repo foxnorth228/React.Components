@@ -28,15 +28,15 @@ class Card extends React.Component<{ card: ICard }, { fileData: string }> {
     const { name, cost, mail, date, projectType, lang, file, isPrepayment } = this.props.card;
     console.log('render' + name);
     return (
-      <div>
-        <span>{name}</span>
-        <span>{cost}</span>
-        <span>{mail}</span>
-        <span>{date.toISOString()}</span>
-        <span>{projectType}</span>
-        <span>{lang}</span>
+      <div className="formCard">
+        <span>{'Name: ' + name}</span>
+        <span>{'Cost: ' + cost}</span>
+        <span>{'Mail: ' + mail}</span>
+        <span>{'Date: ' + date.toISOString().slice(0, 10)}</span>
+        <span>{'ProjectType: ' + projectType}</span>
+        <span>{'Programming language: ' + lang}</span>
+        <span>{'Prepatment: ' + isPrepayment.toString()}</span>
         <img width={'200px'} height={'200px'} src={this.state.fileData} alt="card image"></img>
-        <span>{isPrepayment}</span>
       </div>
     );
   }

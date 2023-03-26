@@ -15,7 +15,7 @@ class CardList extends React.Component<{ ref: React.RefObject<CardList> }, { car
 
   render() {
     return (
-      <div>
+      <div className="formCardList">
         {this.state.cards.map((card, i) => (
           <Card key={i} card={card} />
         ))}
