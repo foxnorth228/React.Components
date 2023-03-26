@@ -21,11 +21,12 @@ class Card extends React.Component<{ card: ICard }, { fileData: string }> {
         }
       }
     };
+    console.log(this.file);
     reader.readAsDataURL(this.file);
   }
 
   render() {
-    const { name, cost, mail, date, projectType, lang, file, isPrepayment } = this.props.card;
+    const { name, cost, mail, date, projectType, lang, isPrepayment } = this.props.card;
     console.log('render' + name);
     return (
       <div className="formCard">

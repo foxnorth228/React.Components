@@ -6,12 +6,6 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes } from 'react-router';
 import { createMemoryHistory } from 'history';
 
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 test('test 1', async () => {
   const history = createMemoryHistory();
 
