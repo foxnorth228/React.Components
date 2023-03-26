@@ -15,6 +15,7 @@ class FormPage extends React.Component {
   refLang: React.RefObject<HTMLInputElement>[];
   refFile: React.RefObject<HTMLInputElement>;
   refPayment: React.RefObject<HTMLInputElement>;
+  refCardList: React.RefObject<CardList>;
 
   constructor(props: object) {
     super(props);
@@ -29,6 +30,7 @@ class FormPage extends React.Component {
     }
     this.refFile = React.createRef();
     this.refPayment = React.createRef();
+    this.refCardList = React.createRef();
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -49,6 +51,16 @@ class FormPage extends React.Component {
         this!.refPayment!.current!.checked
     );
     event.preventDefault();
+    this?.refCardList?.current?.createCard({
+      name: this!.refName!.current!.value,
+      cost: Number.parseInt(this!.refCost!.current!.value),
+      mail: this!.refMail!.current!.value,
+      date: new Date(this!.refDate!.current!.value),
+      projectType: this!.refPrType!.current!.value,
+      lang: 'js',
+      file: this!.refFile!.current!.files![0],
+      isPrepayment: this!.refPayment!.current!.checked,
+    });
   }
 
   render() {
@@ -78,6 +90,7 @@ class FormPage extends React.Component {
           </label>
           <input className="formFile" type="submit" value="Send Request"></input>
         </form>
+        <CardList ref={this.refCardList} />
       </div>
     );
   }
