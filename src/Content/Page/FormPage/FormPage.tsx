@@ -7,6 +7,7 @@ import './FormPage.css';
 
 // buy a program from freelance
 class FormPage extends React.Component {
+  refForm: React.RefObject<HTMLFormElement>;
   refName: React.RefObject<HTMLInputElement>;
   refCost: React.RefObject<HTMLInputElement>;
   refMail: React.RefObject<HTMLInputElement>;
@@ -19,6 +20,7 @@ class FormPage extends React.Component {
 
   constructor(props: object) {
     super(props);
+    this.refForm = React.createRef();
     this.refName = React.createRef();
     this.refCost = React.createRef();
     this.refMail = React.createRef();
@@ -50,23 +52,26 @@ class FormPage extends React.Component {
         this!.refFile!.current!.files![0]!.name +
         this!.refPayment!.current!.checked
     );
+    if (confirm('Are you sure (data will be saved)?')) {
+      this?.refCardList?.current?.createCard({
+        name: this!.refName!.current!.value,
+        cost: Number.parseInt(this!.refCost!.current!.value),
+        mail: this!.refMail!.current!.value,
+        date: new Date(this!.refDate!.current!.value),
+        projectType: this!.refPrType!.current!.value,
+        lang: 'js',
+        file: this!.refFile!.current!.files![0],
+        isPrepayment: this!.refPayment!.current!.checked,
+      });
+      this && this.refForm && this.refForm.current && this.refForm.current.reset();
+    }
     event.preventDefault();
-    this?.refCardList?.current?.createCard({
-      name: this!.refName!.current!.value,
-      cost: Number.parseInt(this!.refCost!.current!.value),
-      mail: this!.refMail!.current!.value,
-      date: new Date(this!.refDate!.current!.value),
-      projectType: this!.refPrType!.current!.value,
-      lang: 'js',
-      file: this!.refFile!.current!.files![0],
-      isPrepayment: this!.refPayment!.current!.checked,
-    });
   }
 
   render() {
     return (
       <div className="formPage">
-        <form className="form" onSubmit={this.handleSubmit}>
+        <form ref={this.refForm} className="form" onSubmit={this.handleSubmit}>
           <FormGeneralInfo
             refName={this.refName}
             refCost={this.refCost}
