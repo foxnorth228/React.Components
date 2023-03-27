@@ -1,35 +1,35 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './SearchBar.css';
 
-class SearchBar extends React.Component<object, { text: string }> {
-  static key = 'search-bar-key';
+function SearchBar() {
+  const key = 'search-bar-key';
+  const [text, setText] = useState(localStorage.getItem(key) ?? '');
+  const refText = useRef<string>('');
 
-  constructor(props: object) {
-    super(props);
-    const str = localStorage.getItem(SearchBar.key) ?? '';
-    this.state = { text: str };
-  }
+  useEffect(() => {
+    refText.current = text;
+  }, [text]);
 
-  render() {
-    return (
-      <div className="searchBar">
-        <div className="searchBar__icon"></div>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="searchBar__text"
-          onChange={(event) => {
-            this.setState({ text: event.target.value });
-          }}
-          value={this.state.text}
-        />
-      </div>
-    );
-  }
+  useEffect(() => {
+    return () => {
+      localStorage.setItem(key, refText.current);
+    };
+  }, []);
 
-  componentWillUnmount() {
-    localStorage.setItem(SearchBar.key, this.state.text);
-  }
+  return (
+    <div className="searchBar">
+      <div className="searchBar__icon"></div>
+      <input
+        type="text"
+        placeholder="Search..."
+        className="searchBar__text"
+        onChange={(event) => {
+          setText(event.target.value);
+        }}
+        value={text}
+      />
+    </div>
+  );
 }
 
 export default SearchBar;
