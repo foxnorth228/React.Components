@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import Content from './Content/Content';
 import pagesInfo from './pagesInfo';
-//update to hooks
+
 export const routes = (
   <>
     {pagesInfo.map((el, i) => {
