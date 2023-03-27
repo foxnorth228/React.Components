@@ -1,0 +1,19 @@
+.formPage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.formFile {
+    margin-top: 15px;
+}
+
+.formVert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formFileI {
+    width: 180px;
+}
