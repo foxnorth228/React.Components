@@ -1,29 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Form from './Form/Form';
 import CardList from './CardList/CardList';
 import './FormPage.css';
+import ICard from './CardList/ICard';
 
-export interface IRefCardList {
-  refCardList: React.RefObject<CardList>;
-}
+export type IRefCardList = React.MutableRefObject<
+  { createCard: (cardInfo: ICard) => void } | undefined
+>;
 
-// buy a program from freelance
-class FormPage extends React.Component {
-  refCardList: React.RefObject<CardList>;
+function FormPage() {
+  const refCardList = useRef<{ createCard: (cardInfo: ICard) => void }>();
 
-  constructor(props: object) {
-    super(props);
-    this.refCardList = React.createRef();
-  }
-
-  render() {
-    return (
-      <div className="formPage">
-        <Form refCardList={this.refCardList} />
-        <CardList ref={this.refCardList} />
-      </div>
-    );
-  }
+  return (
+    <div className="formPage">
+      <Form refCardList={refCardList} />
+      <CardList ref={refCardList} />
+    </div>
+  );
 }
 
 export default FormPage;

@@ -1,27 +1,24 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import './CardList.css';
 import Card from './Card/Card';
 import ICard from './ICard';
 
-class CardList extends React.Component<{ ref: React.RefObject<CardList> }, { cards: ICard[] }> {
-  constructor(props: { ref: React.RefObject<CardList> }) {
-    super(props);
-    this.state = { cards: [] };
-  }
+const CardList = forwardRef((_props, ref) => {
+  const [cards, setCard] = useState<ICard[]>([]);
 
-  createCard(cardInfo: ICard) {
-    this.setState({ cards: [...this.state.cards, cardInfo] });
-  }
+  useImperativeHandle(ref, () => ({
+    createCard(cardInfo: ICard) {
+      setCard([...cards, cardInfo]);
+    },
+  }));
 
-  render() {
-    return (
-      <div className="formCardList">
-        {this.state.cards.map((card, i) => (
-          <Card key={i} card={card} />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="formCardList">
+      {cards.map((card, i) => (
+        <Card key={i} card={card} />
+      ))}
+    </div>
+  );
+});
 
 export default CardList;

@@ -10,14 +10,9 @@ interface IFormGeneralInfo {
   refDate: React.RefObject<HTMLInputElement>;
 }
 
-class FormGeneralInfo extends React.Component<IFormGeneralInfo, object> {
-  constructor(props: IFormGeneralInfo) {
-    super(props);
-    this.checkNameError = this.checkNameError.bind(this);
-  }
-
-  checkNameError() {
-    switch (this.props.errors.name) {
+function FormGeneralInfo({ errors, refName, refCost, refMail, refDate }: IFormGeneralInfo) {
+  function checkNameError() {
+    switch (errors.name) {
       case 1:
         return <span className="errorMessage">{"Name can'n be empty"}</span>;
       default:
@@ -25,8 +20,8 @@ class FormGeneralInfo extends React.Component<IFormGeneralInfo, object> {
     }
   }
 
-  checkCostError() {
-    switch (this.props.errors.cost) {
+  function checkCostError() {
+    switch (errors.cost) {
       case 1:
         return <span className="errorMessage">{"Cost can'n be empty"}</span>;
       case 2:
@@ -36,8 +31,8 @@ class FormGeneralInfo extends React.Component<IFormGeneralInfo, object> {
     }
   }
 
-  checkMailError() {
-    switch (this.props.errors.mail) {
+  function checkMailError() {
+    switch (errors.mail) {
       case 1:
         return <span className="errorMessage">{"Email can'n be empty"}</span>;
       case 2:
@@ -46,47 +41,41 @@ class FormGeneralInfo extends React.Component<IFormGeneralInfo, object> {
         return null;
     }
   }
-  render() {
-    const a = new Date().toISOString().slice(0, 10);
-    return (
-      <div className="generalInfo">
-        <label className="formName">
-          Name of the project
-          <input
-            ref={this.props.refName}
-            type="text"
-            name="name"
-            placeholder="Name of project..."
-          ></input>
-        </label>
-        {this.checkNameError()}
-        <label className="formCost">
-          Proposed payment
-          <input
-            ref={this.props.refCost}
-            type="number"
-            name="cost"
-            placeholder="How much money you offer..."
-          ></input>
-        </label>
-        {this.checkCostError()}
-        <label className="formEmail">
-          Contact Information
-          <input
-            ref={this.props.refMail}
-            type="email"
-            name="contact"
-            placeholder="Your contact email..."
-          ></input>
-        </label>
-        {this.checkMailError()}
-        <label className="formDeadline">
-          Deadline
-          <input ref={this.props.refDate} type="date" defaultValue={a} min={a}></input>
-        </label>
-      </div>
-    );
-  }
+
+  const a = new Date().toISOString().slice(0, 10);
+  return (
+    <div className="generalInfo">
+      <label className="formName">
+        Name of the project
+        <input ref={refName} type="text" name="name" placeholder="Name of project..."></input>
+      </label>
+      {checkNameError()}
+      <label className="formCost">
+        Proposed payment
+        <input
+          ref={refCost}
+          type="number"
+          name="cost"
+          placeholder="How much money you offer..."
+        ></input>
+      </label>
+      {checkCostError()}
+      <label className="formEmail">
+        Contact Information
+        <input
+          ref={refMail}
+          type="email"
+          name="contact"
+          placeholder="Your contact email..."
+        ></input>
+      </label>
+      {checkMailError()}
+      <label className="formDeadline">
+        Deadline
+        <input ref={refDate} type="date" defaultValue={a} min={a}></input>
+      </label>
+    </div>
+  );
 }
 
 export default FormGeneralInfo;

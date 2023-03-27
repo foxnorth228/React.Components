@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
 import FormGeneralInfo from './FormGeneralInfo/FormGeneralInfo';
 import FormProjectType from './FormProjectType/FormProjectType';
 import FormLangInfo from './FormLangInfo/FormLangInfo';
@@ -12,109 +12,90 @@ export interface IErrorValidiry {
   file: number;
 }
 
-class Form extends React.Component<IRefCardList, object> {
-  errorValidity: IErrorValidiry;
-  refForm: React.RefObject<HTMLFormElement>;
-  refName: React.RefObject<HTMLInputElement>;
-  refCost: React.RefObject<HTMLInputElement>;
-  refMail: React.RefObject<HTMLInputElement>;
-  refDate: React.RefObject<HTMLInputElement>;
-  refPrType: React.RefObject<HTMLSelectElement>;
-  refLang: React.RefObject<HTMLInputElement>[];
-  refFile: React.RefObject<HTMLInputElement>;
-  refPayment: React.RefObject<HTMLInputElement>;
-
-  constructor(props: IRefCardList) {
-    super(props);
-    this.refForm = React.createRef();
-    this.refName = React.createRef();
-    this.refCost = React.createRef();
-    this.refMail = React.createRef();
-    this.refDate = React.createRef();
-    this.refPrType = React.createRef();
-    this.refLang = [];
-    for (let i = 0; i < 4; ++i) {
-      this.refLang.push(React.createRef());
-    }
-    this.refFile = React.createRef();
-    this.refPayment = React.createRef();
-
-    this.errorValidity = {
+function Form({ refCardList }: { refCardList: IRefCardList }) {
+  const [, updateState] = React.useState({});
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+  const errorValidity: IErrorValidiry = useMemo(
+    () => ({
       name: 0,
       cost: 0,
       mail: 0,
       file: 0,
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.validate = this.validate.bind(this);
+    }),
+    []
+  );
+  const refForm = useRef<HTMLFormElement>(null);
+  const refName = useRef<HTMLInputElement>(null);
+  const refCost = useRef<HTMLInputElement>(null);
+  const refMail = useRef<HTMLInputElement>(null);
+  const refDate = useRef<HTMLInputElement>(null);
+  const refPrType = useRef<HTMLSelectElement>(null);
+  const refLang = [
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+  ];
+  const refFile = useRef<HTMLInputElement>(null);
+  const refPayment = useRef<HTMLInputElement>(null);
+  function validate() {
+    if (refName!.current!.value === '') {
+      errorValidity.name = 1;
+    } else {
+      errorValidity.name = 0;
+    }
+
+    if (refCost!.current!.value === '') {
+      errorValidity.cost = 1;
+    } else if (!Number(refCost!.current!.value)) {
+      errorValidity.cost = 2;
+    } else {
+      errorValidity.cost = 0;
+    }
+
+    if (refMail!.current!.value === '') {
+      errorValidity.mail = 1;
+    } else if (!refMail!.current?.checkValidity()) {
+      errorValidity.mail = 2;
+    } else {
+      errorValidity.mail = 0;
+    }
+    if (refFile!.current!.files && typeof refFile!.current!.files[0] === 'undefined') {
+      errorValidity.file = 1;
+    } else {
+      errorValidity.file = 0;
+    }
+
+    forceUpdate();
+    return (Object.values(errorValidity) as number[]).every((el) => el === 0);
   }
 
-  resetErrorValidity() {
-    this.errorValidity = {
-      name: 0,
-      cost: 0,
-      mail: 0,
-      file: 0,
-    };
-  }
-
-  validate() {
-    if (this!.refName!.current!.value === '') {
-      this.errorValidity.name = 1;
-    } else {
-      this.errorValidity.name = 0;
-    }
-
-    if (this!.refCost!.current!.value === '') {
-      this.errorValidity.cost = 1;
-    } else if (!Number(this!.refCost!.current!.value)) {
-      this.errorValidity.cost = 2;
-    } else {
-      this.errorValidity.cost = 0;
-    }
-
-    if (this!.refMail!.current!.value === '') {
-      this.errorValidity.mail = 1;
-    } else if (!this!.refMail!.current?.checkValidity()) {
-      this.errorValidity.mail = 2;
-    } else {
-      this.errorValidity.mail = 0;
-    }
-    if (this!.refFile!.current!.files && typeof this!.refFile!.current!.files[0] === 'undefined') {
-      this.errorValidity.file = 1;
-    } else {
-      this.errorValidity.file = 0;
-    }
-
-    this.forceUpdate();
-    return (Object.values(this.errorValidity) as number[]).every((el) => el === 0);
-  }
-
-  handleSubmit(event: React.FormEvent) {
-    if (this.validate() && confirm('Are you sure (data will be saved)?')) {
+  function handleSubmit(event: React.FormEvent) {
+    if (validate() && confirm('Are you sure (data will be saved)?')) {
       let lang = '';
-      for (const ref of this.refLang) {
+      for (const ref of refLang) {
         if (ref.current && ref.current.checked) {
           lang = ref.current.value;
         }
       }
-      this?.props.refCardList?.current?.createCard({
-        name: this!.refName!.current!.value,
-        cost: Number.parseInt(this!.refCost!.current!.value),
-        mail: this!.refMail!.current!.value,
-        date: new Date(this!.refDate!.current!.value),
-        projectType: this!.refPrType!.current!.value,
+      refCardList?.current?.createCard({
+        name: refName!.current!.value,
+        cost: Number.parseInt(refCost!.current!.value),
+        mail: refMail!.current!.value,
+        date: new Date(refDate!.current!.value),
+        projectType: refPrType!.current!.value,
         lang: lang,
-        file: this!.refFile!.current!.files![0],
-        isPrepayment: this!.refPayment!.current!.checked,
+        file: refFile!.current!.files![0],
+        isPrepayment: refPayment!.current!.checked,
       });
-      this && this.refForm && this.refForm.current && this.refForm.current.reset();
+      refForm && refForm.current && refForm.current.reset();
     }
     event.preventDefault();
   }
 
-  checkFileError() {
-    switch (this.errorValidity.file) {
+  function checkFileError(errors: IErrorValidiry) {
+    console.log('check', errors.file);
+    switch (errors.file) {
       case 1:
         return <span className="errorMessage">{'You should select file'}</span>;
       default:
@@ -122,36 +103,34 @@ class Form extends React.Component<IRefCardList, object> {
     }
   }
 
-  render() {
-    return (
-      <form ref={this.refForm} className="form" onSubmit={this.handleSubmit}>
-        <FormGeneralInfo
-          errors={this.errorValidity}
-          refName={this.refName}
-          refCost={this.refCost}
-          refMail={this.refMail}
-          refDate={this.refDate}
-        />
-        <FormProjectType refPr={this.refPrType} />
-        <FormLangInfo refLang={this.refLang} />
-        <label className="formVert formFile">
-          Choose sample image
-          <input
-            ref={this.refFile}
-            className="formFileI"
-            type="file"
-            accept="image/png, image/jpeg"
-          ></input>
-        </label>
-        {this.checkFileError()}
-        <label className="formFile">
-          Prepaymant
-          <input ref={this.refPayment} type="checkbox"></input>
-        </label>
-        <input className="formFile" type="submit" value="Send Request"></input>
-      </form>
-    );
-  }
+  return (
+    <form ref={refForm} className="form" onSubmit={handleSubmit}>
+      <FormGeneralInfo
+        errors={errorValidity}
+        refName={refName}
+        refCost={refCost}
+        refMail={refMail}
+        refDate={refDate}
+      />
+      <FormProjectType refPr={refPrType} />
+      <FormLangInfo refLang={refLang} />
+      <label className="formVert formFile">
+        Choose sample image
+        <input
+          ref={refFile}
+          className="formFileI"
+          type="file"
+          accept="image/png, image/jpeg"
+        ></input>
+      </label>
+      {checkFileError(errorValidity)}
+      <label className="formFile">
+        Prepaymant
+        <input ref={refPayment} type="checkbox"></input>
+      </label>
+      <input className="formFile" type="submit" value="Send Request"></input>
+    </form>
+  );
 }
 
 export default Form;
