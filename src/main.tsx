@@ -11,7 +11,6 @@ import {
 import Content from './Content/Content';
 import pagesInfo from './pagesInfo';
 
-//start hooks
 export const routes = (
   <>
     {pagesInfo.map((el, i) => {
