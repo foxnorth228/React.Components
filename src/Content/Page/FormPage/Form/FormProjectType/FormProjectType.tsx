@@ -1,12 +1,13 @@
 import React from 'react';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 import './FormProjectType.css';
 
-function FormProjectType({ refPr }: { refPr: React.RefObject<HTMLSelectElement> }) {
+function FormProjectType({ register }: { register: UseFormRegister<FieldValues> }) {
   return (
     <>
       <label className="formProjectType">
         Choose project type...
-        <select defaultValue={'FrontEnd'} required ref={refPr}>
+        <select defaultValue={'FrontEnd'} {...register('projectType')}>
           <option>FrontEnd</option>
           <option>BackEnd</option>
           <option>Desktop</option>

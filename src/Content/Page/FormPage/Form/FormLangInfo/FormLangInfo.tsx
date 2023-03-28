@@ -1,25 +1,26 @@
 import React from 'react';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 import './FormLangInfo.css';
 
-function FormLangInfo({ refLang }: { refLang: React.RefObject<HTMLInputElement>[] }) {
+function FormLangInfo({ register }: { register: UseFormRegister<FieldValues> }) {
   return (
     <fieldset className="formLangInfo" name="lang">
       <legend>Select programming language</legend>
       <label>
         Javascript
-        <input ref={refLang[0]} name="lang" value="js" type="radio" defaultChecked></input>
+        <input value="js" type="radio" defaultChecked {...register('lang')}></input>
       </label>
       <label>
         C#
-        <input ref={refLang[1]} name="lang" value="csharp" type="radio"></input>
+        <input value="csharp" type="radio" {...register('lang')}></input>
       </label>
       <label>
         Typescript
-        <input ref={refLang[2]} name="lang" value="ts" type="radio"></input>
+        <input value="ts" type="radio" {...register('lang')}></input>
       </label>
       <label>
         Java
-        <input ref={refLang[3]} name="lang" value="java" type="radio"></input>
+        <input value="java" type="radio" {...register('lang')}></input>
       </label>
     </fieldset>
   );

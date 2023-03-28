@@ -1,78 +1,79 @@
 import React from 'react';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { IErrorValidiry } from '../Form';
 import './FormGeneralInfo.css';
 
 interface IFormGeneralInfo {
-  errors: IErrorValidiry;
-  refName: React.RefObject<HTMLInputElement>;
-  refCost: React.RefObject<HTMLInputElement>;
-  refMail: React.RefObject<HTMLInputElement>;
-  refDate: React.RefObject<HTMLInputElement>;
+  errors: FieldErrors<FieldValues>;
+  register: UseFormRegister<FieldValues>;
 }
 
-function FormGeneralInfo({ errors, refName, refCost, refMail, refDate }: IFormGeneralInfo) {
-  function checkNameError() {
-    switch (errors.name) {
-      case 1:
-        return <span className="errorMessage">{"Name can'n be empty"}</span>;
-      default:
-        return null;
-    }
-  }
+function FormGeneralInfo({ register, errors }: IFormGeneralInfo) {
+  // function checkNameError() {
+  //   switch (errors.name) {
+  //     case 1:
+  //       return <span className="errorMessage">{"Name can'n be empty"}</span>;
+  //     default:
+  //       return null;
+  //   }
+  // }
 
-  function checkCostError() {
-    switch (errors.cost) {
-      case 1:
-        return <span className="errorMessage">{"Cost can'n be empty"}</span>;
-      case 2:
-        return <span className="errorMessage">{'Cost must be a number'}</span>;
-      default:
-        return null;
-    }
-  }
+  // function checkCostError() {
+  //   switch (errors.cost) {
+  //     case 1:
+  //       return <span className="errorMessage">{"Cost can'n be empty"}</span>;
+  //     case 2:
+  //       return <span className="errorMessage">{'Cost must be a number'}</span>;
+  //     default:
+  //       return null;
+  //   }
+  // }
 
-  function checkMailError() {
-    switch (errors.mail) {
-      case 1:
-        return <span className="errorMessage">{"Email can'n be empty"}</span>;
-      case 2:
-        return <span className="errorMessage">{'Email must be correct'}</span>;
-      default:
-        return null;
-    }
-  }
+  // function checkMailError() {
+  //   switch (errors.mail) {
+  //     case 1:
+  //       return <span className="errorMessage">{"Email can'n be empty"}</span>;
+  //     case 2:
+  //       return <span className="errorMessage">{'Email must be correct'}</span>;
+  //     default:
+  //       return null;
+  //   }
+  // }
 
   const a = new Date().toISOString().slice(0, 10);
+  console.log(errors);
   return (
     <div className="generalInfo">
       <label className="formName">
         Name of the project
-        <input ref={refName} type="text" name="name" placeholder="Name of project..."></input>
+        <input type="text" placeholder="Name of project..." {...register('name')}></input>
       </label>
-      {checkNameError()}
+      {/* {checkNameError()} */}
       <label className="formCost">
         Proposed payment
         <input
-          ref={refCost}
           type="number"
-          name="cost"
           placeholder="How much money you offer..."
+          {...register('cost', {
+            required: 'Value must be a string and not empty',
+            valueAsNumber: true,
+          })}
         ></input>
       </label>
-      {checkCostError()}
+      {errors.cost && <p>{errors.cost.message as string}</p>}
       <label className="formEmail">
         Contact Information
-        <input
-          ref={refMail}
-          type="email"
-          name="contact"
-          placeholder="Your contact email..."
-        ></input>
+        <input type="email" placeholder="Your contact email..." {...register('mail')}></input>
       </label>
-      {checkMailError()}
+      {/* {checkMailError()} */}
       <label className="formDeadline">
         Deadline
-        <input ref={refDate} type="date" defaultValue={a} min={a}></input>
+        <input
+          type="date"
+          defaultValue={a}
+          min={a}
+          {...register('date', { valueAsDate: true })}
+        ></input>
       </label>
     </div>
   );
