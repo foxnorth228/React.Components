@@ -1,11 +1,10 @@
-import React, { BaseSyntheticEvent, useMemo, useRef } from 'react';
+import React from 'react';
 import FormGeneralInfo from './FormGeneralInfo/FormGeneralInfo';
 import FormProjectType from './FormProjectType/FormProjectType';
 import FormLangInfo from './FormLangInfo/FormLangInfo';
 import { IRefCardList } from '../FormPage';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import './Form.css';
-import ICard from '../CardList/ICard';
 
 export interface IErrorValidiry {
   name: number;
@@ -18,39 +17,23 @@ function Form({ refCardList }: { refCardList: IRefCardList }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
-
-  function handleSubmit1(
-    data: FieldValues,
-    e: BaseSyntheticEvent<object, object, HTMLFormElement> | undefined
-  ) {
-    console.log(data);
-    console.log(errors);
-    console.log(e);
+  function handleSubmit1(data: FieldValues) {
+    console.log(data.sample);
     if (confirm('Are you sure (data will be saved)?')) {
-      const lang = '';
       refCardList?.current?.createCard({
         name: data.name,
         cost: data.cost,
         mail: data.mail,
         date: data.date,
         projectType: data.projectType,
-        lang: lang,
-        file: data.sample,
+        lang: data.lang,
+        file: data.sample[0],
         isPrepayment: data.prepayment,
       });
-    }
-    e?.target.reset();
-  }
-
-  function checkFileError(errors: IErrorValidiry) {
-    console.log('check', errors.file);
-    switch (errors.file) {
-      case 1:
-        return <span className="errorMessage">{'You should select file'}</span>;
-      default:
-        return null;
+      reset();
     }
   }
 
@@ -65,10 +48,12 @@ function Form({ refCardList }: { refCardList: IRefCardList }) {
           className="formFileI"
           type="file"
           accept="image/png, image/jpeg"
-          {...register('sample')}
+          {...register('sample', {
+            validate: (value) => (value && typeof value[0] !== 'undefined') || 'add file',
+          })}
         ></input>
       </label>
-      {/* {checkFileError(errorValidity)} */}
+      {errors.sample && <span className="errorMessage">{errors.sample.message as string}</span>}
       <label className="formFile">
         Prepaymant
         <input type="checkbox" {...register('prepayment')}></input>

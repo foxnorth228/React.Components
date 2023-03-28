@@ -1,6 +1,5 @@
 import React from 'react';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
-import { IErrorValidiry } from '../Form';
 import './FormGeneralInfo.css';
 
 interface IFormGeneralInfo {
@@ -9,63 +8,39 @@ interface IFormGeneralInfo {
 }
 
 function FormGeneralInfo({ register, errors }: IFormGeneralInfo) {
-  // function checkNameError() {
-  //   switch (errors.name) {
-  //     case 1:
-  //       return <span className="errorMessage">{"Name can'n be empty"}</span>;
-  //     default:
-  //       return null;
-  //   }
-  // }
-
-  // function checkCostError() {
-  //   switch (errors.cost) {
-  //     case 1:
-  //       return <span className="errorMessage">{"Cost can'n be empty"}</span>;
-  //     case 2:
-  //       return <span className="errorMessage">{'Cost must be a number'}</span>;
-  //     default:
-  //       return null;
-  //   }
-  // }
-
-  // function checkMailError() {
-  //   switch (errors.mail) {
-  //     case 1:
-  //       return <span className="errorMessage">{"Email can'n be empty"}</span>;
-  //     case 2:
-  //       return <span className="errorMessage">{'Email must be correct'}</span>;
-  //     default:
-  //       return null;
-  //   }
-  // }
-
   const a = new Date().toISOString().slice(0, 10);
-  console.log(errors);
   return (
     <div className="generalInfo">
       <label className="formName">
         Name of the project
-        <input type="text" placeholder="Name of project..." {...register('name')}></input>
+        <input
+          type="text"
+          placeholder="Name of project..."
+          {...register('name', { required: "Name can't be empty" })}
+        ></input>
       </label>
-      {/* {checkNameError()} */}
+      {errors.name && <span className="errorMessage">{errors.name.message as string}</span>}
       <label className="formCost">
         Proposed payment
         <input
           type="number"
           placeholder="How much money you offer..."
           {...register('cost', {
-            required: 'Value must be a string and not empty',
+            required: 'Cost must be a number and not empty',
             valueAsNumber: true,
           })}
         ></input>
       </label>
-      {errors.cost && <p>{errors.cost.message as string}</p>}
+      {errors.cost && <span className="errorMessage">{errors.cost.message as string}</span>}
       <label className="formEmail">
         Contact Information
-        <input type="email" placeholder="Your contact email..." {...register('mail')}></input>
+        <input
+          type="email"
+          placeholder="Your contact email..."
+          {...register('mail', { required: "Mail can't be empty" })}
+        ></input>
       </label>
-      {/* {checkMailError()} */}
+      {errors.mail && <span className="errorMessage">{errors.mail.message as string}</span>}
       <label className="formDeadline">
         Deadline
         <input
