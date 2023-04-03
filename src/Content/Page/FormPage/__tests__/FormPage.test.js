@@ -23,6 +23,11 @@ test('test 1', async () => {
   await waitFor(async () => {
     expect(screen.getByRole('heading', { name: 'FormPage' }));
 
+    window.confirm = jest.fn().mockImplementation(() => true);
+    const submitButton = screen.getByText('Send Request');
+    expect(submitButton).toBeInTheDocument();
+    await userEvent.click(submitButton);
+
     const inputName = screen.getByPlaceholderText('Name of project...');
     expect(inputName).toBeInTheDocument();
     fireEvent.change(inputName, { target: { value: 'React' } });
@@ -42,9 +47,6 @@ test('test 1', async () => {
     await user.upload(inputFile, file);
     expect(inputFile.files.length).toBe(1);
 
-    window.confirm = jest.fn().mockImplementation(() => true);
-    const submitButton = screen.getByText('Send Request');
-    expect(submitButton).toBeInTheDocument();
     await userEvent.click(submitButton);
   });
 });
