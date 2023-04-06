@@ -12,7 +12,14 @@ function Card({
   const { name } = obj;
   return (
     <div className="card">
-      <h3 className="card__name">{name}</h3>
+      <h3
+        className="card__name"
+        onClick={() => {
+          setDialog(name);
+        }}
+      >
+        {name}
+      </h3>
     </div>
   );
 }

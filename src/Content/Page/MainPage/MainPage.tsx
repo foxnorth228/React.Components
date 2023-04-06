@@ -44,7 +44,7 @@ function Main() {
 
   return (
     <div>
-      {isModalDialog && <ModalDialog />}
+      {isModalDialog && <ModalDialog setDialog={setModalDialog} />}
       <SearchBar setSearchValue={setSearchValue} />
       {isLoading && <h1>Loading...</h1>}
       {isError && <h1>Request finished with error</h1>}
