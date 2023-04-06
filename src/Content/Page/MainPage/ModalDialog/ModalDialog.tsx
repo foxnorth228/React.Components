@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import ModalDialogCard from './ModalDialogCard/ModalDialogCard';
 import './ModalDialog.css';
+import { cardInf } from '../CardList/dataCard';
 
 function ModalDialog({
   name,
@@ -8,7 +10,7 @@ function ModalDialog({
   name: string;
   setDialog: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  const [card, setCard] = useState({});
+  const [card, setCard] = useState<cardInf | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -38,7 +40,7 @@ function ModalDialog({
         setIsLoading(false);
         console.log(err);
       });
-  }, []);
+  }, [name]);
 
   useEffect(() => {
     fetchData();
@@ -50,7 +52,7 @@ function ModalDialog({
         <div className="modalDialog__cross" onClick={() => setDialog('')}></div>
         {isLoading && <h1>Loading...</h1>}
         {isError && <h1>Request finished with error</h1>}
-        {!isLoading && !isError && <h1>NAME</h1>}
+        {!isLoading && !isError && <ModalDialogCard card={card} />}
       </div>
     </div>
   );
