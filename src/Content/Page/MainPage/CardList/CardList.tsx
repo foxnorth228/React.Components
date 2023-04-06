@@ -1,13 +1,13 @@
 import React from 'react';
 import Card from './Card/Card';
-import { data } from './dataCard';
+import { cardInf } from './dataCard';
 import './CardList.css';
 
-function CardList() {
+function CardList({ data }: { data: cardInf[] }) {
   return (
     <div className="cardList">
       {data.map((el) => (
-        <Card key={el.id} obj={el} />
+        <Card key={el._id} obj={el} />
       ))}
     </div>
   );
