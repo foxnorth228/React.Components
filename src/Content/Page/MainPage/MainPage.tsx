@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import CardList from './CardList/CardList';
 import SearchBar from './SearchBar/SearchBar';
 import ModalDialog from './ModalDialog/ModalDialog';
+import axios from 'axios';
 
 function Main() {
   const [searchValue, setSearchValue] = useState('');
@@ -12,24 +13,23 @@ function Main() {
 
   const fetchData = useCallback(() => {
     setIsLoading(true);
-    fetch(
-      'https://the-one-api.dev/v2/character?' +
-        new URLSearchParams({
-          name: `/${searchValue}/i`,
-        }),
-      {
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer 2YKrVJHDJfrg_jneDz-z',
-        },
-      }
-    )
-      .then((response) => response.json())
+    axios
+      .get(
+        'https://the-one-api.dev/v2/character?' +
+          new URLSearchParams({
+            name: `/${searchValue}/i`,
+          }),
+        {
+          method: 'GET',
+          headers: {
+            Authorization: 'Bearer 2YKrVJHDJfrg_jneDz-z',
+          },
+        }
+      )
       .then((data) => {
-        setCardList(data?.docs);
+        setCardList(data.data?.docs);
         setIsLoading(false);
         setIsError(false);
-        console.log(data);
       })
       .catch((err) => {
         setIsError(true);

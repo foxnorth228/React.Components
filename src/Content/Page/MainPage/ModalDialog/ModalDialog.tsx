@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ModalDialogCard from './ModalDialogCard/ModalDialogCard';
 import './ModalDialog.css';
 import { cardInf } from '../CardList/dataCard';
+import axios from 'axios';
 
 function ModalDialog({
   name,
@@ -16,24 +17,22 @@ function ModalDialog({
 
   const fetchData = useCallback(() => {
     setIsLoading(true);
-    fetch(
-      'https://the-one-api.dev/v2/character?' +
-        new URLSearchParams({
-          name: name,
-        }),
-      {
-        method: 'GET',
-        headers: {
-          Authorization: 'Bearer 2YKrVJHDJfrg_jneDz-z',
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setCard(data.docs[0]);
+    axios
+      .get(
+        'https://the-one-api.dev/v2/character?' +
+          new URLSearchParams({
+            name: name,
+          }),
+        {
+          headers: {
+            Authorization: 'Bearer 2YKrVJHDJfrg_jneDz-z',
+          },
+        }
+      )
+      .then((response) => {
+        setCard(response.data.docs[0]);
         setIsLoading(false);
         setIsError(false);
-        console.log(data);
       })
       .catch((err) => {
         setIsError(true);

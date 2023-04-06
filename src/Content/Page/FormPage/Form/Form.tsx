@@ -21,7 +21,6 @@ function Form({ refCardList }: { refCardList: IRefCardList }) {
     formState: { errors },
   } = useForm({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
   function handleSubmit1(data: FieldValues) {
-    console.log(data.sample);
     if (confirm('Are you sure (data will be saved)?')) {
       refCardList?.current?.createCard({
         name: data.name,
