@@ -41,7 +41,6 @@ test('test 1', async () => {
   await user.click(aboutItem);
   await waitFor(() => {
     expect(screen.getByRole('heading', { name: 'AboutPage' }));
-    // expect(localStorage.getItem('search-bar-key')).toMatch(/React/);
   });
   await user.click(screen.getByText('404'));
   await waitFor(() => {
