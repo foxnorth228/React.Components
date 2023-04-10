@@ -1,0 +1,55 @@
+.modalDialog {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(128, 128, 128, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalDialog__block {
+    display: flex;
+    flex-direction: column;
+    width: 30vmax;
+    height:30vmax;
+    min-width: 300px;
+    min-height: 400px;
+    background-color: rgba(255, 255, 255, 1.0)
+}
+
+.modalDialog__cross {
+    align-self: self-end;
+	position: relative;
+	margin: 10px;
+	width: 24px;
+	height: 24px;
+	opacity: 0.2;
+	cursor: pointer;
+    transition: opacity ease 0.5s;
+}
+
+.modalDialog__cross:hover {
+    opacity: 1;
+}
+
+.modalDialog__cross::before,
+.modalDialog__cross::after {
+	content: '';
+	position: absolute;
+	top: 10px;
+	display: block;
+	width: 24px;
+	height: 3px;
+	background: #000;
+}
+
+.modalDialog__cross::before {
+	transform: rotate(45deg);
+}
+
+.modalDialog__cross::after {
+	transform: rotate(-45deg);
+}

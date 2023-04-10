@@ -1,23 +1,13 @@
 export interface cardInf {
-  id: number;
+  _id: number;
+  birth: string;
+  death: string;
+  gender: string;
+  hair: string;
+  height: string;
   name: string;
-  author: string;
-  tags: string[];
-  description: string;
-  likes: number;
-  views: number;
-}
-
-export const data: cardInf[] = [];
-
-for (let i = 1; i < 20; ++i) {
-  data.push({
-    id: i,
-    name: 'name' + i,
-    author: 'author' + i,
-    tags: ['tag1', 'tag2', 'tag3'],
-    description: 'description' + i,
-    likes: i,
-    views: i,
-  });
+  race: string;
+  realm: string;
+  spouse: string;
+  wikiUrl: string;
 }
