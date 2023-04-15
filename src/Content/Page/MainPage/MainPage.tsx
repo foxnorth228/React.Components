@@ -3,9 +3,12 @@ import CardList from './CardList/CardList';
 import SearchBar from './SearchBar/SearchBar';
 import ModalDialog from './ModalDialog/ModalDialog';
 import axios from 'axios';
+import { RootState } from '../../../store';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Main() {
-  const [searchValue, setSearchValue] = useState('');
+  const searchValue = useSelector((state: RootState) => state.searchValue.value);
+  const setSearchValue = useDispatch();
   const [cardList, setCardList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -45,7 +48,7 @@ function Main() {
   return (
     <div>
       {isModalDialog && <ModalDialog name={isModalDialog} setDialog={setModalDialog} />}
-      <SearchBar setSearchValue={setSearchValue} />
+      <SearchBar value={searchValue} setSearchValue={setSearchValue} />
       {isLoading && <h1>Loading...</h1>}
       {isError && <h1>Request finished with error</h1>}
       {!isLoading && !isError && <CardList data={cardList} setDialog={setModalDialog} />}
