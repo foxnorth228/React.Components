@@ -5,11 +5,13 @@ import ModalDialog from './ModalDialog/ModalDialog';
 import axios from 'axios';
 import { RootState } from '../../../store';
 import { useSelector, useDispatch } from 'react-redux';
+import { changeList } from './cardList';
 
 function Main() {
   const searchValue = useSelector((state: RootState) => state.searchValue.value);
   const setSearchValue = useDispatch();
-  const [cardList, setCardList] = useState([]);
+  const cardList = useSelector((state: RootState) => state.cardList.value);
+  const setCardList = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [isModalDialog, setModalDialog] = useState('');
@@ -30,7 +32,7 @@ function Main() {
         }
       )
       .then((data) => {
-        setCardList(data.data?.docs);
+        setCardList(changeList(data.data?.docs));
         setIsLoading(false);
         setIsError(false);
       })
@@ -39,7 +41,7 @@ function Main() {
         setIsLoading(false);
         console.log(err);
       });
-  }, [searchValue]);
+  }, [searchValue, setCardList]);
 
   useEffect(() => {
     fetchData();
