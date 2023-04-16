@@ -13,7 +13,13 @@ export const oneApi = createApi({
         headers: { Authorization: 'Bearer 2YKrVJHDJfrg_jneDz-z' },
       }),
     }),
+    getName: builder.query<{ docs: cardInf[] }, string>({
+      query: (name) => ({
+        url: `character?name=${name.replaceAll(' ', '+')}`,
+        headers: { Authorization: 'Bearer 2YKrVJHDJfrg_jneDz-z' },
+      }),
+    }),
   }),
 });
 
-export const { useGetNamesQuery } = oneApi;
+export const { useGetNameQuery, useGetNamesQuery } = oneApi;

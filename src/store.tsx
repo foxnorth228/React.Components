@@ -12,14 +12,16 @@ export const store = configureStore({
     [oneApi.reducerPath]: oneApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(oneApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActionPaths: [
+          'meta.baseQueryMeta.request',
+          'meta.baseQueryMeta.response',
+          'payload.file',
+        ],
+        ignoredPaths: ['formCards.value'],
+      },
+    }).concat(oneApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-
-// {
-//   serializableCheck: {
-//     ignoredActionPaths: ['payload.file'],
-//     ignoredPaths: ['formCards.value.0.file'],
-//   },
-// }

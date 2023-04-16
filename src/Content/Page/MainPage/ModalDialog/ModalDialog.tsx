@@ -1,10 +1,10 @@
 import React from 'react';
 import ModalDialogCard from './ModalDialogCard/ModalDialogCard';
 import './ModalDialog.css';
-import { useGetNamesQuery } from '../oneApi';
+import { useGetNameQuery } from '../oneApi';
 
 function ModalDialog({ name, setDialog }: { name: string; setDialog: (name: string) => void }) {
-  const { data, error, isFetching: loading } = useGetNamesQuery(name);
+  const { data, error, isFetching: loading } = useGetNameQuery(name);
   return (
     <div className="modalDialog" onClick={() => setDialog('')}>
       <div className="modalDialog__block" onClick={(event) => event.stopPropagation()}>
