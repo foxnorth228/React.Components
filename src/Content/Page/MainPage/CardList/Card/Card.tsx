@@ -2,13 +2,7 @@ import React from 'react';
 import { cardInf } from '../dataCard';
 import './Card.css';
 
-function Card({
-  obj,
-  setDialog,
-}: {
-  obj: cardInf;
-  setDialog: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function Card({ obj, setDialog }: { obj: cardInf; setDialog: (name: string) => void }) {
   const { name } = obj;
   return (
     <div className="card">

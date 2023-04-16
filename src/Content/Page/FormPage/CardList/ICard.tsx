@@ -2,7 +2,7 @@ export default interface ICard {
   name: string;
   cost: number;
   mail: string;
-  date: Date;
+  date: string;
   projectType: string;
   lang: string;
   file: File;

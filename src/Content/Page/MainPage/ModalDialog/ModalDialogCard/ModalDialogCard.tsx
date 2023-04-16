@@ -14,7 +14,6 @@ function ModalDialogCard({ card }: { card: cardInf | null }) {
   if (card === null) {
     return <div>Error</div>;
   }
-  console.log(card);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, wikiUrl, ...restCard } = card;
   const info = Object.entries(restCard).sort((a, b) => (a[0] < b[0] ? -1 : 1));

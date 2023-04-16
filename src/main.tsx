@@ -10,6 +10,8 @@ import {
 } from 'react-router-dom';
 import Content from './Content/Content';
 import pagesInfo from './pagesInfo';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 export const routes = (
   <>
@@ -25,7 +27,9 @@ const router = createBrowserRouter(createRoutesFromElements(routes));
 ReactDOM.createRoot(
   (document.getElementById('root') as HTMLElement) || document.createElement('div')
 ).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </Provider>
 );

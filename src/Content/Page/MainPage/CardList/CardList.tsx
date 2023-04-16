@@ -3,13 +3,7 @@ import Card from './Card/Card';
 import { cardInf } from './dataCard';
 import './CardList.css';
 
-function CardList({
-  data,
-  setDialog,
-}: {
-  data: cardInf[];
-  setDialog: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function CardList({ data, setDialog }: { data: cardInf[]; setDialog: (name: string) => void }) {
   return (
     <div className="cardList">
       {data.map((el) => (

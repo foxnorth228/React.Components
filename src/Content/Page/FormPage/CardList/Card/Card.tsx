@@ -25,7 +25,7 @@ function Card({ card }: { card: ICard }) {
       <span>{'Name: ' + name}</span>
       <span>{'Cost: ' + cost}</span>
       <span>{'Mail: ' + mail}</span>
-      <span>{'Date: ' + date.toISOString().slice(0, 10)}</span>
+      <span>{'Date: ' + date}</span>
       <span>{'ProjectType: ' + projectType}</span>
       <span>{'Programming language: ' + lang}</span>
       <span>{'Prepatment: ' + isPrepayment.toString()}</span>
