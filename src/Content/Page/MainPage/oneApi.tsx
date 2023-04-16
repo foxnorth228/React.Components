@@ -9,7 +9,7 @@ export const oneApi = createApi({
   endpoints: (builder) => ({
     getNames: builder.query<{ docs: cardInf[] }, string>({
       query: (name) => ({
-        url: `character?name=/${name}/i`,
+        url: `character?name=/${name.replaceAll(' ', '+')}/i`,
         headers: { Authorization: 'Bearer 2YKrVJHDJfrg_jneDz-z' },
       }),
     }),

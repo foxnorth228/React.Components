@@ -16,3 +16,10 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+
+// {
+//   serializableCheck: {
+//     ignoredActionPaths: ['payload.file'],
+//     ignoredPaths: ['formCards.value.0.file'],
+//   },
+// }
