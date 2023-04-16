@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { cardInf } from './CardList/dataCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 export const modalDialog = createSlice({
-  name: 'cardList',
+  name: 'modalDialog',
   initialState: { value: '' },
   reducers: {
     changeModalDialog: (state, action) => {
@@ -13,3 +14,9 @@ export const modalDialog = createSlice({
 
 export const { changeModalDialog } = modalDialog.actions;
 export default modalDialog.reducer;
+
+export function useModalDialog(): [string, (name: string) => void] {
+  const modalDialog = useSelector((state: RootState) => state.modalDialog.value);
+  const setModalDialog = useDispatch();
+  return [modalDialog, (name) => setModalDialog(changeModalDialog(name))];
+}

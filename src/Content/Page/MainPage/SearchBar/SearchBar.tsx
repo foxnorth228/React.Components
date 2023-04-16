@@ -1,14 +1,12 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import './SearchBar.css';
-import { AnyAction } from '@reduxjs/toolkit';
-import { changeValue } from '../searchValue';
 
 function SearchBar({
   value,
   setSearchValue,
 }: {
   value: string;
-  setSearchValue: Dispatch<AnyAction>;
+  setSearchValue: (name: string) => void;
 }) {
   return (
     <div className="searchBar">
@@ -21,7 +19,7 @@ function SearchBar({
         onKeyDown={(event) => {
           event.stopPropagation();
           if (event.key === 'Enter') {
-            setSearchValue(changeValue(event.currentTarget.value));
+            setSearchValue(event.currentTarget.value);
           }
         }}
       />

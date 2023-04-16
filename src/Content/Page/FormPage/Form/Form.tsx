@@ -26,7 +26,7 @@ function Form({ refCardList }: { refCardList: IRefCardList }) {
         name: data.name,
         cost: data.cost,
         mail: data.mail,
-        date: data.date,
+        date: data.date.toISOString().slice(0, 10),
         projectType: data.projectType,
         lang: data.lang,
         file: data.sample[0],
